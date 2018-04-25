@@ -1,8 +1,10 @@
-require "herokuci/version"
+require 'herokuci/version'
+require 'herokuci/heroku_ci_api'
 require 'rubygems'
 require 'json'
 require 'blink1'
 require 'optparse'
+
 
 module Herokuci
   def self.get_heroku_ci_status_of_latest_build(application)
@@ -21,8 +23,7 @@ module Herokuci
   end
 
   def self.update_build_light_state(application)
-    latest_build_state = get_heroku_ci_status_of_latest_build(application)
-    reflect_state_via_build_light(latest_build_state)
+    reflect_state_via_build_light(CiApi.new(application).current_status)
   end
 
 
@@ -52,7 +53,7 @@ module Herokuci
     end
 
     opts.on_tail('--version', "Show version") do
-      puts VERSION
+      puts Herokuci::VERSION
       exit
     end
   end
