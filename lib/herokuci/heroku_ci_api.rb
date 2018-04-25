@@ -1,3 +1,5 @@
+require 'json'
+
 module Herokuci
   class CiApi
     def initialize(application)
