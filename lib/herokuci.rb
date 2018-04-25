@@ -10,7 +10,8 @@ module Herokuci
   def self.reflect_state_via_build_light(latest_build_state)
     puts "CI status: #{latest_build_state}"
     BuildLight.new.build_succeeded if latest_build_state == "succeeded"
-    BuildLight.new.build_succeeded unless latest_build_state == "succeeded"
+    BuildLight.new.build_failed if latest_build_state == "failed"
+    BuildLight.new.build_unkown if latest_build_state != "failed" && latest_build_state != "succeeded"
   end
 
   def self.update_build_light_state(application)

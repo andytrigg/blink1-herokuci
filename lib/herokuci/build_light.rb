@@ -14,6 +14,10 @@ module Herokuci
       set_rgb_for_light(0,255,0)
     end
 
+    def build_unkown
+      set_rgb_for_light(0,0,255)
+    end
+
     private
 
     def set_rgb_for_light(r, g, b)
